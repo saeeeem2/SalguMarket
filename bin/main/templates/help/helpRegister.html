@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/help.css">
+
+    <!-- Featured Section Begin -->
+<form action="/help/helpRegister" method="post" enctype="multipart/form-data">
+    <section class="table">
+        <div class="container-md">
+        <input type="hidden" name="email" class="form-control" aria-label="Username" aria-describedby="basic-addon1" th:value=${loginmvo.email}>
+				<div class="input-group mb-3">
+				  <span class="input-group-text" id="basic-addon1">제목</span>
+				  <input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요.">
+				</div>
+				<div class="input-group">
+				  <span class="input-group-text">내용</span>
+				  <textarea class="form-control" name="content" placeholder="내용을 입력해주세요." rows="15" style="width:100%;"></textarea>
+				</div>
+
+				<div class="mb-3">
+				  	<label for="file" class="form-label">첨부파일</label>
+				  	<input type="file" name="files" class="form-control" id="files" multiple style="display:none"><br>
+				  	<button type="button" class="btn btn-primary" id="trigger">찾아보기</button>
+				</div>
+				<div class="mb-3">
+					파일 목록 표시라인
+					<div id="fileZone" class="mb-3">
+					파일 목록
+					</div>
+				</div>
+			<!-- </form> -->
+		</div>
+    </section>
+    <!-- Featured Section End -->
+        
+    <!-- Button Section Begin -->
+    <section class="button-area">
+	    <div class="container">
+		    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			  <button class="btn" id="regBtn" type="submit">저장</button>
+			</div>
+	    </div>
+    </section>
+	<br><br><br>
+</form>
+	<!-- Button Section End-->
+	
+	<script th:src="@{/js/help/helpRegister.js}"></script>
+	
+</th:block>
+</th:block>

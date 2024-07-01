@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<div class="container" style="max-width: 600px; padding: 50px; margin-bottom: 70px;">
+<h2 style="font-family: 'Do Hyeon', sans-serif; text-align: center;">비밀번호 변경</h2><br>
+<form action="/member/updatePwd" method="post">
+<div class="mb-3" style="margin-top: 30px;">
+  <label for="exampleFormControlInput1" class="form-labe t" >비밀번호 변경</label> 
+  <input type="password" name="pwd" class="form-control f pwd" id="pwd1" placeholder="특수문자/문자/숫자 포함 5~10자">
+</div>
+<div class="mb-3 text-danger" id="passzone1"></div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-labe t" >비밀번호 확인</label>
+  <input type="password" class="form-control f" id="pwd2" placeholder="다시 한 번 입력해주세요.">
+</div>
+<div class="mb-3 text-danger" id="passzone2"></div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button type="submit" class="site-btn bb form-control"  id="re_btn"  style="background-color: #FFAC6D; margin-top: 0;">확인</button>
+</div>
+</form>
+</div>
+	
+</th:block>
+</th:block>
+<script type="text/javascript">
+document.getElementById('re_btn').disabled=true;
+/*비밀번호 정규식*/
+document.getElementById('pwd1').addEventListener('input', () => {
+    let regpwd = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).{8,15}$/;
+    let pwd1 = document.getElementById('pwd1').value;
+    let div = document.getElementById('passzone1');
+    if (!regpwd.test(pwd1)) {
+        div.innerText = '비밀번호가 형식에 맞지 않습니다.';
+        document.getElementById('re_btn').disabled=true;
+        document.getElementById('pwd2').disabled=true;
+    }else{
+		div.innerText='';
+        document.getElementById('pwd2').disabled=false;
+	}
+});
+
+/*비밀번호 일치*/
+document.getElementById('pwd2').addEventListener('input',()=>{
+	let pwd1 = document.getElementById('pwd1').value;
+	let pwd2 = document.getElementById('pwd2').value;
+	console.log(pwd1);
+	console.log(pwd2);
+	let div = document.getElementById('passzone2');
+	if(pwd1 === pwd2){
+		div.innerText="비밀번호가 일치합니다.";
+		document.getElementById('re_btn').disabled=false;
+	}else{
+		div.innerText="비밀번호가 일치하지 않습니다.";
+		document.getElementById('re_btn').disabled=true;
+	}
+	
+});
+
+
+
+</script>

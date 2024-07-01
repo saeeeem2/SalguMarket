@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.SalGuMarket.www.repository.CommentMapper">
+
+	<insert id="insert">
+		insert into comment(nick_name,content,reg_at,mod_at,bno,email,is_profile,file_name)
+		value(#{nickName},#{content},now(),#{modAt},#{bno},#{email},#{isProfile},#{fileName})
+	</insert>
+	
+	<select id="selectOneBnoTotalCount" resultType="int">
+		select count(cno) from comment where bno=#{bno}
+	</select>
+	
+	<select id="getList" resultType="com.SalGuMarket.www.domain.CommentVO">
+		select * from comment where bno=#{bno} order by bno desc limit #{pgvo.pageStart},#{pgvo.qty}
+	</select>
+	
+	<update id="edit">
+		update comment set content=#{content}, mod_at=now() where cno=#{cno}
+	</update>
+
+	<delete id="delete">
+		delete from comment where cno=#{cno}
+	</delete>
+	
+	<update id="updateProfile">
+		update comment set file_name=#{fileName} where email=#{email}
+	</update>
+	
+	<update id="yesProfile">
+		update comment set is_profile='1' where email=#{email}
+	</update>
+	
+	<update id="noProfile">
+		update comment set is_profile='0' where email=#{email}
+	</update>
+</mapper>

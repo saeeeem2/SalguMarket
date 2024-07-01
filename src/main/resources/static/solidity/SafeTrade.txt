@@ -1,0 +1,108 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SafeTrade {
+    
+    // 제품의 구조체
+    struct Product {
+        uint id;
+        address payable seller;
+        uint price;
+        bool isSold;
+    }
+    
+    uint public productCount = 0;
+    mapping(uint => Product) public products;
+    mapping(uint => address) public buyers;
+
+    event ProductCreated(uint id, address seller, uint price);
+    event ProductPurchased(uint id, address buyer, uint price);
+    event PurchaseConfirmed(uint id, address buyer);
+
+    // 취소 요청을 추적하기 위한 구조체
+    struct CancelRequest {
+        bool requested;
+        bool approved;
+    }
+    
+    mapping(uint => CancelRequest) public cancelRequests;
+
+    event CancellationRequested(uint id, address requester);
+    event CancellationApproved(uint id, address approver);
+    event PurchaseCancelled(uint id, address buyer);
+
+    // 판매자의 제품 등록
+    function createProduct(uint _price) public {
+        productCount ++;
+        products[productCount] = Product(productCount, payable(msg.sender), _price, false);
+
+        emit ProductCreated(productCount, msg.sender, _price);
+    }
+
+    // 구매자의 구매 신청
+    function purchaseProduct(uint _id) public payable {
+        Product storage product = products[_id];
+
+        require(_id > 0 && _id <= productCount, "Product does not exist.");
+        require(msg.value == product.price, "Incorrect price.");
+        require(!product.isSold, "Product is already sold.");
+
+        product.isSold = true;
+        buyers[_id] = msg.sender;
+
+        emit ProductPurchased(_id, msg.sender, product.price);
+    }
+
+    // 구매자의 구매 확정
+    function confirmPurchase(uint _id) public {
+        require(buyers[_id] == msg.sender, "Only the buyer can confirm the purchase.");
+        Product storage product = products[_id];
+
+        require(product.isSold, "Product is not sold.");
+        product.seller.transfer(product.price);
+
+        emit PurchaseConfirmed(_id, msg.sender);
+    }
+
+    // 구매자가 판매자에게 구매 취소를 요청
+    function requestCancel(uint _id) public {
+        require(buyers[_id] == msg.sender, "Only the buyer can request cancellation.");
+        require(products[_id].isSold, "Product is not sold.");
+        
+        cancelRequests[_id] = CancelRequest({
+            requested: true,
+            approved: false
+        });
+
+        emit CancellationRequested(_id, msg.sender);
+    }
+
+    // 판매자가 구매 취소 요청을 승인
+    function approveCancel(uint _id) public {
+        require(products[_id].seller == msg.sender, "Only the seller can approve cancellation.");
+        require(cancelRequests[_id].requested, "Cancellation not requested.");
+        
+        cancelRequests[_id].approved = true;
+        payable(buyers[_id]).transfer(products[_id].price);
+        products[_id].isSold = false;
+        buyers[_id] = address(0); // 구매자 정보 초기화
+
+        emit CancellationApproved(_id, msg.sender);
+        emit PurchaseCancelled(_id, buyers[_id]);
+    }
+
+    // 판매자가 거래를 취소하는 함수
+    function sellerCancel(uint _id) public {
+    Product storage product = products[_id];
+
+    require(product.seller == msg.sender, "Only the seller can cancel the transaction.");
+    require(product.isSold, "Product has not been sold yet.");
+    require(!cancelRequests[_id].approved, "Cancellation has already been approved.");
+
+    payable(buyers[_id]).transfer(product.price);
+    product.isSold = false;
+    buyers[_id] = address(0); // 구매자 정보 초기화
+
+    emit PurchaseCancelled(_id, buyers[_id]);
+    }
+}

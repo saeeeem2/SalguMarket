@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.register-form{
+	width: 70%;
+	margin: 50px auto;
+}
+
+.col-lg-9{
+	margin: 0 auto;
+}
+
+.form-control{
+	border: 1px solid #FFAC6D;
+	border-radius: 0.25rem;
+}
+
+.btn{
+	background-color: #FFAC6D;
+	color: white;
+	font-size: 18px;
+	font-weight: 400;
+}

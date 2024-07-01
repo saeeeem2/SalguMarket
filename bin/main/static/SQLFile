@@ -1,0 +1,147 @@
+----------member Table-------------
+create table member(
+email varchar(200) not null,
+name varchar(200),
+wallet_address varchar(200),
+pwd varchar(1000) not null,
+nick_name varchar(200) not null,
+reg_at datetime default now(),
+last_login datetime default now(),
+phone_num varchar(100),
+stop char(1) default 'n',
+report int default 0,
+heart bigint,
+reg_email varchar(200),
+primary key(email));
+
+-----------auth_member Table--------------
+CREATE TABLE auth_member (
+email VARCHAR(200) NOT NULL,
+auth VARCHAR(100) NOT NULL,
+FOREIGN KEY (email) REFERENCES member(email) ON DELETE CASCADE
+);
+
+
+alter table auth_member add constraint fk_auth foreign key(email) references member(email);
+
+-----------file Table--------------
+create table file(
+uuid varchar(256) not null,
+save_dir varchar(256) not null,
+file_name varchar(256) not null,
+file_type tinyint(1) default 0,
+file_size bigint not null,
+reg_at datetime default now(),
+mod_at datetime default now(),
+main_image tinyint(1),
+product_title varchar(200),
+price bigint,
+bno bigint,
+pno bigint,
+h_bno bigint,
+no_bno bigint,
+email varchar(200),
+primary key(uuid)
+);
+
+ALTER TABLE file
+FOREIGN KEY (bno)
+REFERENCES board(bno);
+
+ALTER TABLE file
+FOREIGN KEY (pno)
+REFERENCES product(pno);
+
+ALTER TABLE file
+FOREIGN KEY (h_bno)
+REFERENCES helpBoard(h_bno);
+
+ALTER TABLE file
+FOREIGN KEY (no_bno)
+REFERENCES helpBoard(no_bno);
+
+-----------board Table--------------
+create table board(
+bno bigint auto_increment,
+title varchar(200) not null,
+email varchar(200) not null,
+nick_name varchar(200) not null,
+content text,
+reg_at datetime default now(),
+mod_at datetime default now(),
+read_count int default 0,
+comment_count int default 0,
+primary key(bno)
+);
+
+ALTER TABLE board
+FOREIGN KEY (email)
+REFERENCES member(email);
+
+-----------help_board Table--------------
+create table help_board(
+h_bno bigint auto_increment,
+title varchar(200) not null,
+content text,
+email varchar(200) not null,
+reg_at datetime default now(),
+mod_at datetime default now(),
+hbno2 bigint,
+primary key(h_bno)
+);
+
+ALTER TABLE help_board
+FOREIGN KEY (email)
+REFERENCES member(email);
+
+-----------notice Table--------------
+CREATE TABLE notice(
+no_bno BIGINT AUTO_INCREMENT,
+title VARCHAR(200) NOT NULL,
+content TEXT,
+read_count INT DEFAULT 0,
+reg_at DATETIME DEFAULT NOW(),
+mod_at DATETIME DEFAULT NOW(),
+PRIMARY KEY(no_bno)
+);
+
+-----------comment Table--------------
+create table comment(
+cno bigint auto_increment,
+nick_name varchar(200) not null,
+content text,
+reg_at datetime default now(),
+mod_at datetime default now(),
+bno bigint not null,
+email varchar(200) not null,
+is_profile int default 0,
+file_name varchar(200),
+primary key(cno)
+);
+
+ALTER TABLE comment
+FOREIGN KEY (email)
+REFERENCES member(email);
+
+ALTER TABLE comment
+FOREIGN KEY (bno)
+REFERENCES board(bno);
+
+--------- heart Table-----------
+create table heart(
+email varchar(200),
+pno bigint);
+
+--------- Sell_Board Table-----------
+create table sell_board(
+sbno bigint auto_increment,
+title varchar(200) not null,
+email varchar(200) not null,
+nick_name varchar(200) not null,
+content text,
+reg_at datetime default now(),
+mod_at datetime default now(),
+read_count int default 0,
+comment_count int default 0,
+primary key(sbno)
+);

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<div class="container" style="max-width: 600px; padding: 50px; margin-bottom: 70px;">
+<h2 style="font-family: 'Do Hyeon', sans-serif; text-align: center;">아이디 찾기</h2><br>
+<div class="mb-3" style="margin-top: 15px;">
+  <label for="exampleFormControlInput1" class="form-label t">이름</label>
+  <input type="text" name="name" class="form-control f" id="Fname" placeholder="이름을 입력해주세요.">
+</div>
+<div class="mb-3" style="margin-top: 15px;">
+  <label for="exampleFormControlInput1" class="form-label t">인증번호 받을 이메일</label>
+  <input type="email" name="regEmail" class="form-control f" id="Femail" placeholder="가입 시 적었던 메일을 입력해주세요.">
+</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button type="button" id="FID" class="site-btn bb form-control" style="background-color: #FFAC6D; margin-top: 0; margin-bottom: 10px; width: 90px;">전송</button>
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-labe t">인증번호</label>
+  <input type="text" class="form-control f pwd" id="authkey" placeholder="인증번호를 입력해주세요.">
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button type="submit" class="site-btn bb form-control" id="FID2" style="background-color: #FFAC6D; margin-top: 0;">확인</button>
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-center find">
+<a href="/member/register">회원가입</a>
+<a href="/member/findPw">비밀번호 찾기</a>
+</div>
+</div>
+	
+<div class="modal" tabindex="-1" id="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">아이디 찾기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modal_text"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modal_confirm" style="background-color: #FFAC6D;" data-bs-dismiss="modal">로그인</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+</th:block>
+</th:block>
+<script type="text/javascript" src="/js/member_find.js"></script>

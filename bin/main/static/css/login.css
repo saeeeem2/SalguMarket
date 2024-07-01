@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+
+.bb {
+	font-weight: 400;
+	font-size: 18px;
+	height: 45px;
+	padding-top: 10px;
+	margin-top: 20px;
+}
+
+.container h2:after {
+   left: 0;
+   bottom: 680px;
+   right: 0;
+   height: 4px;
+   width: 80px;
+   background: #FFAC6D;
+   content: "";
+   margin: 0 auto;
+   display: block;
+}
+
+.t{
+	font-size: 20px;
+	font-family: "Do Hyeon", sans-serif;
+}
+
+.f{
+	height: 45px;
+	margin: 5px 0 20px 0;
+	border: 1px solid #FFAC6D;
+	border-radius: 0.25rem;
+}
+
+.kakao_img{
+	width: 500px;
+	margin-top: 17px;
+	height: 45px;
+}
+
+.find a{
+	margin-left: 35px;
+	margin-top: 15px;
+	color: gray;
+	font-size: 15px;
+
+}

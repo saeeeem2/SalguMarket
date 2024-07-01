@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/help.css">
+
+    <!-- Featured Section Begin -->
+    <section class="featured spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>1:1문의</h2>
+                    </div>
+                    <div class="featured__controls">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+							      <!-- <th scope="col">글번호</th> -->
+							      <th scope="col">제목</th>
+							      <th scope="col">작성일</th>
+							    </tr>
+							</thead>
+							<tbody>
+							<th:block th:each="hbvo:${list}">
+								<tr th:if="${hbvo.hbno2 % 2 == 1}">
+									<!-- <th scope="row"><a th:href="@{/help/helpDetail(hbno=${hbvo.hbno})}">[[${hbvo.hbno}]]</a></th> -->
+								    <td><a th:href="@{/help/helpDetail(hbno=${hbvo.hbno})}"><span><i class="bi bi-file-lock2-fill"></i></span> ↳ [[${hbvo.title}]]  </a></td>
+									<td>[[${hbvo.regAt}]]</td>
+								</tr>
+								<tr th:if="${hbvo.hbno2 % 2 == 0}">
+									<!-- <th scope="row"><a th:href="@{/help/helpDetail(hbno=${hbvo.hbno})}">[[${hbvo.hbno}]]</a></th> -->
+								    <td><a th:href="@{/help/helpDetail(hbno=${hbvo.hbno})}"><span><i class="bi bi-file-lock2-fill"></i></span>[[${hbvo.title}]]  </a><span class="badge text-bg-danger">답변완료</span></td>
+									<td>[[${hbvo.regAt}]]</td>
+								</tr>
+							</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+    </section>
+    <!-- Featured Section End -->
+        
+	<!-- Pagination Section Begin-->
+    <section class="pagenation">
+       <div class="container">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+           <a sec:authorize="hasAnyAuthority('ROLE_USER')" href="/help/helpRegister"><button class="btn" type="button">작성</button></a>
+          </div>
+          <nav aria-label="Page navigation example">
+           <ul class="pagination justify-content-center">
+           <!-- 이전페이지 -->
+             <li class="page-item " th:if="${ph.prev}">
+               <a class="page-link" th:href="@{/help/helpList(pageNo=${ph.startPage-1},qty=${ph.pgvo.qty})}"  aria-label="Previous">&lt;&lt;</a>
+             </li>
+             
+             <li class="page-item ${ph.pgvo.pageNo == i ? 'active':''}" th:each="i:${#numbers.sequence(ph.startPage,ph.endPage)}" aria-current="page">
+             <a class="page-link"  th:href="@{/help/helpList(pageNo=${i},qty=${ph.pgvo.qty})}">[[${i}]]</a>
+             </li>
+             
+             <!-- 다음페이지 -->
+             <li class="page-item" th:if="${ph.next}">
+               <a class="page-link"  th:href="@{/help/helpList(pageNo=${ph.endPage+1 },qty=${ph.pgvo.qty})}"  aria-label="Next">&gt;&gt;</a>
+             </li>
+           </ul>
+         </nav>
+       </div>
+    </section>
+	<br><br><br>
+	<!-- Pagination Section End-->
+	
+		
+</th:block>
+</th:block>

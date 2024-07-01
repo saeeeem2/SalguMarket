@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.SalGuMarket.www.repository.FileMapper">
+
+	<select id="selectBnoAllFile" resultType="com.SalGuMarket.www.domain.FileVO">
+		select * from file where bno=#{bno}
+	</select>
+	
+	<select id="selectListAllFile" resultType="com.SalGuMarket.www.domain.FileVO">
+		select * from file
+	</select>
+	
+	<select id="getFile" resultType="com.SalGuMarket.www.domain.FileVO">
+		select * from file where email=#{email}
+	</select>
+	
+	<insert id="saveProductFile">
+		INSERT INTO file(uuid, save_dir, file_name, file_type, file_size, pno, main_image)
+		VALUES(#{uuid}, #{saveDir}, #{fileName}, #{fileType}, #{fileSize}, #{pno}, #{mainImage})
+	</insert>
+	
+	<select id="getCategoriesSliderImageList10Image" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT f.uuid, f.save_dir, f.file_name, f.pno FROM file f
+		JOIN product p ON f.pno = p.pno
+		WHERE f.main_image = 1
+		<if test="category != null">AND p.category = #{category}</if>
+		<include refid="search"></include>
+		ORDER BY p.pno DESC
+		LIMIT 10
+	</select>
+	
+	<select id="get8MainImage" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT f.uuid, f.save_dir, f.file_name, f.pno, p.price, p.title as product_title FROM file f
+		JOIN product p ON f.pno = p.pno
+		WHERE f.main_image = 1
+		<if test="category != null">AND p.category = #{category}</if>
+		<include refid="search"></include>
+		ORDER BY p.pno DESC
+		LIMIT #{pageStart}, #{qty}
+	</select>
+	
+	<select id="getMainImageByPno" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT * FROM file
+		WHERE pno = #{pno} AND main_image = 1
+	</select>
+	
+	<select id="getMinorIamgeListByPno" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT * FROM file
+		WHERE pno = #{pno} AND main_image = 0
+	</select>
+
+	<insert id="insertProfile">
+		INSERT INTO file(uuid, save_dir, file_name, file_type, file_size, email)
+		VALUES(#{uuid}, #{saveDir}, #{fileName}, #{fileType}, #{fileSize}, #{email})
+	</insert>
+	
+	<delete id="deleteFile">
+		delete from file where email=#{email}
+	</delete>
+	
+	<select id="getFileName" resultType="String">
+		select file_name from file where email=#{email}
+	</select>
+	
+	<insert id="insertFile">
+		INSERT INTO file(uuid, save_dir, file_name, file_type, file_size, bno)
+		VALUES(#{uuid}, #{saveDir}, #{fileName}, #{fileType}, #{fileSize}, #{bno})
+	</insert>
+
+	<select id="selectProfile" resultType="com.SalGuMarket.www.domain.FileVO">
+		select * from file where email=#{email}
+	</select>
+	
+	<select id="getHelpFileList" resultType="com.SalGuMarket.www.domain.FileVO">
+		select * from file where h_bno=#{hbno}
+	</select>
+	
+	<select id="getNoticeFileList" resultType="com.SalGuMarket.www.domain.FileVO">
+		select * from file where no_bno=#{noBno}
+	</select>
+	
+	<!-- 검색 동적 SQL 쿼리문 -->
+	<sql id="search">
+		<if test="type != null">
+			<foreach collection="typeToArray" item="type">
+				<choose>
+					<when test="type == 't'.toString()">
+						AND p.title LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test="type == 'w'.toString()">
+						AND p.seller_nick_name LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+				</choose>
+			</foreach>
+		</if>
+	</sql>
+
+</mapper>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<link rel="stylesheet" type="text/css" href="/css/register.css">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+
+    <section class="hero">
+    	<div class="container md">
+        	<h2 style=" text-align: center; padding-top: 20px;">[[${mvo.nickName}]]님의 정보</h2>
+        		<div class="col-lg-9 mypage">
+	        		<div class="profile-image-box">
+				        <label class="profile-image">프로필 사진</label>
+				        <img id="profile-image-display" class="profile-image-display" alt="프로필 사진 미리보기" src="/img/salgu_profile.png"><br>
+				        <input type="file" id="profile-image-input" accept="image/*">
+	        		</div>
+			        <label for="email">이메일</label>
+			        <span id="userEmail">[[${mvo.email}]]</span>
+			        <label for="walletAddress">지갑 주소</label>
+			        <span th:if="mvo.walletAddress != null" id="walletAddress">[[${mvo.walletAddress}]]</span>
+			        <span th:if="mvo.walletAddress == null" id="walletAddress">지갑 주소 미생성</span>
+			        <label for="nickName">닉네임</label>
+			        <span id="nickName">[[${mvo.nickName}]]</span>
+			        <label for="phone">전화번호</label>
+			        <span id="phone">${mvo.phone}</span>
+		        </div>
+        </div>
+    </section>
+    
+</th:block>
+</th:block>

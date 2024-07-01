@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="setFragment(content)">
+<head>
+<title>살구마켓</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/layout.css" type="text/css">
+</head>
+
+<body>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="/img/salgu_header_logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 header_menu">
+					<ul class="nav" style="justify-content: space-between;">
+					  <li class="nav-item">
+					    <a class="nav-link" href="#" id="productSaleButton">판매 등록</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="/board/boardList">자유게시판</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="/notice/noticeList">공지사항</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link" href="/help/helpList">1:1문의</a>
+					  </li>
+					  <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+					    <a class="nav-link" th:href="@{/member/list(pageNo=1,qty=9)}">회원목록</a> <!-- 시큐리티 설정 후 관리자만 보이게 -->
+					  </li>
+					</ul>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                    <!-- 로그아웃 사용자 -->
+                        <ul sec:authorize="isAnonymous()">
+                            <li><a href="/member/login"><i class="bi bi-person"></i> 로그인</a></li>
+                            <li><a href="/member/register"><i class="bi bi-person-add"></i> 회원가입</a></li>
+                        </ul>
+                        <!-- 로그인 사용자 -->
+                         <ul sec:authorize="isAuthenticated()">
+                            <li><a href="/member/mypage"><i class="bi bi-person-circle"></i> 내 정보</a></li>
+                            <li><a href="/member/logout"><i class="bi bi-x-circle"></i> 로그아웃</a></li>
+                        </ul> 
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+ <!-- content line -->
+ <div>
+ 	<th:block th:replace="${content}"></th:block>
+ </div>
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="/img/salgu_logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: Ezen Academy</li>
+                            <li><a href="https://github.com/TrueThanFalse/Project_Team_SalGuMarket" target="_blank">https://github.com/TrueThanFalse/Project_Team_SalGuMarket</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <ul>
+                      <h6>Position</h6>
+                            <li>Leader</li>
+                            <li>Member</li>
+                            <li>Member</li>
+                            <li>Member</li>
+                            <li>Member</li>
+   
+                        </ul>
+                        <ul>
+                        <h6>Name</h6>
+                            <li><a href="https://github.com/TrueThanFalse" target="_blank">Hong Minsik</a></li>
+                            <li><a href="https://github.com/JaeYong-An" target="_blank">An Jaeyong</a></li>
+                            <li><a href="https://github.com/tpgjs8471" target="_blank">Oh Seheon</a></li>
+                            <li><a href="https://github.com/cmjii" target="_blank">Choi Minji</a></li>
+                            <li><a href="https://github.com/saeeeem2" target="_blank">Hwang Saemi</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Search for what you want</h6>
+                        <p>You can now easily search here too!</p>
+                        <form action="#">
+                            <input type="text" placeholder="">                            
+                            <button type="submit" class="site-btn but">Search</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    
+    <!--/* HMS part, 판매 등록 클릭시 지갑 주소가 없을 경우 모달창 출력 */-->
+	<!-- Button trigger modal -->
+	<button type="button" id="staticBackdropButton" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" hidden=""></button>
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<form action="/product/staticBackdropModal" method="post">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="staticBackdropLabel">지갑 주소 등록</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <input type="text" id="staticBackdropInput" name="staticBackdropInput" style="width: 100%" placeholder="공개키 주소를 입력해 주세요.">
+		        <p hidden="" id="staticBackdropInputWarning" style="margin: 0"></p>
+		        <p style="color: red !important; margin: 0" >주의! 반드시 공개키 주소를 입력해 주세요. (개인키 절대 금지)</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		        <button type="submit" id="staticBackdropSubmitButton" class="btn btn-primary" disabled="disabled">등록</button>
+		      </div>
+		    </div>
+		  </div>
+		</form>
+	</div>
+	<!--/* HMS part, 판매 등록 실패의 모달창 */-->
+    
+    <!-- Js Plugins -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.slicknav.js"></script>
+    <script src="/js/mixitup.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+	
+	<script src="/js/layout.js"></script>
+</body>
+		
+</th:block>
+</html>
