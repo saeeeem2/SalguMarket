@@ -14,8 +14,12 @@
 }
 
 .hero__item {
+<<<<<<< HEAD
     width: 100% !important;
     padding: 0;
+=======
+    width: 100% !important; 
+>>>>>>> origin/main
 }
 
 .hero__search__form {
@@ -31,5 +35,9 @@
     .hero__search__form form input {
 		width: 70% !important;
 	}
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> origin/main

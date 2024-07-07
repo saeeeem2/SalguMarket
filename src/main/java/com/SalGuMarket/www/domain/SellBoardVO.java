@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SellBoardVO {
-	private int readCount, cmtCount;	
+	private int readCount, cmtCount;
 	private long sbno, price;
 	private String title, email, nickName, content, regAt, modAt, category;
 }

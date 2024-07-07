@@ -2614,7 +2614,11 @@ ol {
 }
 
 .footer__widget ul {
+<<<<<<< HEAD
 	width: 40%;
+=======
+	width: 50%;
+>>>>>>> origin/main
 	float: left;
 }
 

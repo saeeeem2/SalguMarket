@@ -80,11 +80,14 @@
   		insert into heart(email, bno)
   		values (#{email}, #{bno})
   	</insert>
+<<<<<<< HEAD
   	
   	<insert id="insertHeartSbno">
   		insert into heart(email, sbno)
   		values (#{email}, #{sbno})
   	</insert>
+=======
+>>>>>>> origin/main
 	
 	<select id="getHeartBoard" resultType="com.SalGuMarket.www.domain.BoardVO">
 		select * from board where bno=#{bno} order by bno desc limit #{pgvo.pageStart}, #{pgvo.qty}
@@ -102,6 +105,7 @@
 		delete from heart where email = #{email} and bno = #{bno}
 	</delete>
 	
+<<<<<<< HEAD
 	<select id="hasHeartSbno" resultType="com.SalGuMarket.www.domain.HeartVO">
   		select * from heart where email = #{email} and sbno = #{sbno}
 	</select>
@@ -110,6 +114,8 @@
 		delete from heart where email = #{email} and sbno = #{sbno}
 	</delete>
 	
+=======
+>>>>>>> origin/main
 	<sql id="search">
 		<if test="type!=null">
 			<trim prefix="order by" prefixOverrides="or">

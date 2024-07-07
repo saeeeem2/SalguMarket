@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class IndexController {
-
+	
 	private final SellBoardService sellBoardService;
 	
 	@GetMapping("/")
@@ -35,7 +35,7 @@ public class IndexController {
 		if(pgvo.getKeyword() == "") {
 			pgvo.setKeyword(null);
 		}
-	    
+		
 	    List<FileVO> categoryImageList = sellBoardService.get8MainImage(pgvo);
 	    for(FileVO file : categoryImageList) {
 	    	file.setSaveDir(file.getSaveDir().replace(File.separator, "/"));
@@ -50,6 +50,27 @@ public class IndexController {
 		
 		model.addAttribute("categoryImageList", categoryImageList);
 		model.addAttribute("ph", ph);
+		
+//		List<FileVO> categoriesSliderImageList = productService.getCategoriesSliderImageList10Image();
+//		for(FileVO file : categoriesSliderImageList) {
+//	    	file.setSaveDir(file.getSaveDir().replace(File.separator, "/"));
+//	    }
+//	    
+//	    List<FileVO> categoryImageList = productService.get8MainImage(pgvo);
+//	    for(FileVO file : categoryImageList) {
+//	    	file.setSaveDir(file.getSaveDir().replace(File.separator, "/"));
+//	    }
+//	    
+//	    int totalCount = productService.getTotalCount(pgvo);
+//	    if(totalCount == 0) {
+//	    	totalCount = 1;
+//	    }
+//	    
+//	    PagingHandler ph = new PagingHandler(pgvo, totalCount);
+//		
+//		model.addAttribute("categoriesSliderImageList", categoriesSliderImageList);
+//		model.addAttribute("categoryImageList", categoryImageList);
+//		model.addAttribute("ph", ph);
 		return "index";
 	}
 }

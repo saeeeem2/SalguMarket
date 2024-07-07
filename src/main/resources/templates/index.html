@@ -109,7 +109,7 @@
 				    <li class="page-item ${ph.pgvo.pageNo == i ? 'active':''}" th:each="i:${#numbers.sequence(ph.startPage,ph.endPage)}" aria-current="page">
 				    	<a class="page-link" th:href="@{/(pageNo=${i},qty=${ph.pgvo.qty},type=${ph.pgvo.type},keyword=${ph.pgvo.keyword})}">[[${i}]]</a>
 				    </li>
-				             
+			
 				    <!-- 다음페이지 -->
 				    <li class="page-item" th:if="${ph.next}">
 				    	<a class="page-link" th:href="@{/(pageNo=${ph.endPage+1},qty=${ph.pgvo.qty},type=${ph.pgvo.type},keyword=${ph.pgvo.keyword})}" aria-label="Next">&gt;&gt;</a>

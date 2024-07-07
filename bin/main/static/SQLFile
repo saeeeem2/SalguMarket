@@ -24,6 +24,7 @@ FOREIGN KEY (email) REFERENCES member(email) ON DELETE CASCADE
 
 alter table auth_member add constraint fk_auth foreign key(email) references member(email);
 
+<<<<<<< HEAD
 -----------product Table--------------
 CREATE TABLE product (
 pno bigint NOT NULL AUTO_INCREMENT,
@@ -121,6 +122,8 @@ ALTER TABLE chatting_log
 FOREIGN KEY (chat_bno)
 REFERENCES chatting_room(chat_bno);
 
+=======
+>>>>>>> origin/main
 -----------file Table--------------
 create table file(
 uuid varchar(256) not null,
@@ -229,9 +232,25 @@ create table heart(
 email varchar(200),
 pno bigint);
 
+<<<<<<< HEAD
 --------- alter table ----------
 alter table member drop column wallet_address;
 alter table sell_board add column price bigint default 0;
 alter table file drop column pno;
 alter table file add column sbno bigint;
 alter table heart add column sbno bigint;
+=======
+--------- Sell_Board Table-----------
+create table sell_board(
+sbno bigint auto_increment,
+title varchar(200) not null,
+email varchar(200) not null,
+nick_name varchar(200) not null,
+content text,
+reg_at datetime default now(),
+mod_at datetime default now(),
+read_count int default 0,
+comment_count int default 0,
+primary key(sbno)
+);
+>>>>>>> origin/main

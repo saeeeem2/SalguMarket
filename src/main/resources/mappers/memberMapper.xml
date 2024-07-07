@@ -109,7 +109,6 @@
 	<delete id="delHeartSbno">
 		delete from heart where email = #{email} and sbno = #{sbno}
 	</delete>
-	
 	<sql id="search">
 		<if test="type!=null">
 			<trim prefix="order by" prefixOverrides="or">

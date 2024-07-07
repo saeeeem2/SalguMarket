@@ -17,6 +17,7 @@
 		select * from file where email=#{email}
 	</select>
 	
+<<<<<<< HEAD
 	<insert id="saveSellFile">
 		INSERT INTO file(uuid, save_dir, file_name, file_type, file_size, sbno, main_image)
 		VALUES(#{uuid}, #{saveDir}, #{fileName}, #{fileType}, #{fileSize}, #{sbno}, #{mainImage})
@@ -29,10 +30,25 @@
 		<if test="category != null">AND p.category = #{category}</if>
 		<include refid="search"></include>
 		ORDER BY s.sbno DESC
+=======
+	<insert id="saveProductFile">
+		INSERT INTO file(uuid, save_dir, file_name, file_type, file_size, pno, main_image)
+		VALUES(#{uuid}, #{saveDir}, #{fileName}, #{fileType}, #{fileSize}, #{pno}, #{mainImage})
+	</insert>
+	
+	<select id="getCategoriesSliderImageList10Image" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT f.uuid, f.save_dir, f.file_name, f.pno FROM file f
+		JOIN product p ON f.pno = p.pno
+		WHERE f.main_image = 1
+		<if test="category != null">AND p.category = #{category}</if>
+		<include refid="search"></include>
+		ORDER BY p.pno DESC
+>>>>>>> origin/main
 		LIMIT 10
 	</select>
 	
 	<select id="get8MainImage" resultType="com.SalGuMarket.www.domain.FileVO">
+<<<<<<< HEAD
 		SELECT f.uuid, f.save_dir, f.file_name, f.sbno, s.price, s.title as product_title FROM file f
 		JOIN sell_board s ON f.sbno = s.sbno
 		WHERE f.main_image = 1
@@ -50,6 +66,25 @@
 	<select id="getMinorIamgeListBySbno" resultType="com.SalGuMarket.www.domain.FileVO">
 		SELECT * FROM file
 		WHERE sbno = #{sbno} AND main_image = 0
+=======
+		SELECT f.uuid, f.save_dir, f.file_name, f.pno, p.price, p.title as product_title FROM file f
+		JOIN product p ON f.pno = p.pno
+		WHERE f.main_image = 1
+		<if test="category != null">AND p.category = #{category}</if>
+		<include refid="search"></include>
+		ORDER BY p.pno DESC
+		LIMIT #{pageStart}, #{qty}
+	</select>
+	
+	<select id="getMainImageByPno" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT * FROM file
+		WHERE pno = #{pno} AND main_image = 1
+	</select>
+	
+	<select id="getMinorIamgeListByPno" resultType="com.SalGuMarket.www.domain.FileVO">
+		SELECT * FROM file
+		WHERE pno = #{pno} AND main_image = 0
+>>>>>>> origin/main
 	</select>
 
 	<insert id="insertProfile">

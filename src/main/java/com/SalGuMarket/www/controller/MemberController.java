@@ -139,7 +139,7 @@ public class MemberController {
 		}
 		return "redirect:/board/boardDetail?bno="+hvo.getBno();
 	}
-	
+
 	@PostMapping("/heartSbno")
 	public String heartSbno(HeartVO hvo, Principal p, Model m) {
 		memberService.insertHeartSbno(hvo);

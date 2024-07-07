@@ -32,12 +32,21 @@
                         <div class="hero__search__form">
                             <form th:action="@{/}" method="get">
 	                            <select name="type" class="form-select" aria-label="Default select example">
+<<<<<<< HEAD
 								  <option th:value="t" th:selected="${ph.pgvo.type == null || ph.pgvo.type == 't'}">제목</option>
 								  <option th:value="w" th:selected="${ph.pgvo.type == 'w'}">작성자</option>
 								</select>
                                 <input type="text" name="keyword" th:value="${ph.pgvo.keyword}" placeholder="What do you need?">
                                 <input type="hidden" name="pageNo" th:value="1">
                                 <input type="hidden" name="qty" th:value="${ph.pgvo.qty}">
+=======
+								  <!-- <option th:value="t" th:selected="${ph.pgvo.type == null || ph.pgvo.type == 't'}">제목</option>
+								  <option th:value="w" th:selected="${ph.pgvo.type == 'w'}">작성자</option> -->
+								</select>
+                                <!-- <input type="text" name="keyword" th:value="${ph.pgvo.keyword}" placeholder="What do you need?">
+                                <input type="hidden" name="pageNo" th:value="1">
+                                <input type="hidden" name="qty" th:value="${ph.pgvo.qty}"> -->
+>>>>>>> origin/main
                                 <button type="submit" class="site-btn">검색</button>
                             </form>
                         </div>
@@ -51,15 +60,46 @@
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                    	<a href="#">
                    		<img class="hero__item set-bg" alt="" src="/img/salgu_main_banner.png">
                    	</a>
+=======
+                    <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                        <div class="hero__text">
+                            <span>FRUIT FRESH</span>
+                            <h2>Vegetable <br />100% Organic</h2>
+                            <p>Free Pickup and Delivery Available</p>
+                            <a href="#" class="primary-btn">SHOP NOW</a>
+                        </div>
+                    </div>
+>>>>>>> origin/main
                 </div>
             </div>
         </div>
     </section>
     <!-- Hero Section End -->
 
+<<<<<<< HEAD
+=======
+    <!-- Categories Section Begin -->
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel" id="CategoriesList">
+                	<!-- 가장 최근에 판매 등록된 제품 10개를 보여주는 Slider -->
+                	<div class="col-lg-3" th:each="file : ${categoriesSliderImageList}">
+					    <div class="categories__item set-bg" th:data-setbg=@{/upload/{saveDir}/{uuid}_main_{fileName}(saveDir=${file.saveDir},uuid=${file.uuid},fileName=${file.fileName})}>
+					        <h5><a th:href="@{/product/productDetail(pno=${file.pno})}">Detail Page</a></h5>
+					    </div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+
+>>>>>>> origin/main
     <!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container">
@@ -73,6 +113,7 @@
             <div class="row featured__filter">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix" th:each="file : ${categoryImageList}">
                     <div class="featured__item">
+<<<<<<< HEAD
                         <div th:if="${file.fileName == ''}" class="featured__item__pic set-bg" th:data-setbg=@{/img/salgu_profile.png}>
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
@@ -81,13 +122,24 @@
                         <div th:if="${file.fileName != ''}" class="featured__item__pic set-bg" th:data-setbg=@{/upload/{saveDir}/{uuid}_main_{fileName}(saveDir=${file.saveDir},uuid=${file.uuid},fileName=${file.fileName})}>
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
+=======
+                        <div class="featured__item__pic set-bg" th:data-setbg=@{/upload/{saveDir}/{uuid}_main_{fileName}(saveDir=${file.saveDir},uuid=${file.uuid},fileName=${file.fileName})}>
+                            <ul class="featured__item__pic__hover">
+                                <li><a th:href="@{/product/heart(pno=${file.pno})}"><i class="fa fa-heart"></i></a></li>
+>>>>>>> origin/main
                             </ul>
                         </div>
                         <div class="featured__item__text">
                             <h6 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+<<<<<<< HEAD
                             	<a th:href="@{/sell/sellDetail(sbno=${file.sbno})}">[[${file.productTitle}]]</a>
                             </h6>
                             <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${file.price}]]원</h5>
+=======
+                            	<a th:href="@{/product/productDetail(pno=${file.pno})}">[[${file.productTitle}]]</a>
+                            </h6>
+                            <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${file.price}]] ETH</h5>
+>>>>>>> origin/main
                         </div>
                     </div>
                 </div>
@@ -100,8 +152,13 @@
     <section class="pagenation">
 	    <div class="container">
 		    <nav aria-label="Page navigation example">
+<<<<<<< HEAD
 			    <ul class="pagination justify-content-center">
 				    <!-- 이전페이지 -->
+=======
+			    <!-- <ul class="pagination justify-content-center">
+				    이전페이지
+>>>>>>> origin/main
 				    <li class="page-item " th:if="${ph.prev}">
 				    	<a class="page-link" th:href="@{/(pageNo=${ph.startPage-1},qty=${ph.pgvo.qty},type=${ph.pgvo.type},keyword=${ph.pgvo.keyword})}" aria-label="Previous">&lt;&lt;</a>
 				    </li>
@@ -110,16 +167,25 @@
 				    	<a class="page-link" th:href="@{/(pageNo=${i},qty=${ph.pgvo.qty},type=${ph.pgvo.type},keyword=${ph.pgvo.keyword})}">[[${i}]]</a>
 				    </li>
 				             
+<<<<<<< HEAD
 				    <!-- 다음페이지 -->
 				    <li class="page-item" th:if="${ph.next}">
 				    	<a class="page-link" th:href="@{/(pageNo=${ph.endPage+1},qty=${ph.pgvo.qty},type=${ph.pgvo.type},keyword=${ph.pgvo.keyword})}" aria-label="Next">&gt;&gt;</a>
 				    </li>
 			    </ul>
+=======
+				    다음페이지
+				    <li class="page-item" th:if="${ph.next}">
+				    	<a class="page-link" th:href="@{/(pageNo=${ph.endPage+1},qty=${ph.pgvo.qty},type=${ph.pgvo.type},keyword=${ph.pgvo.keyword})}" aria-label="Next">&gt;&gt;</a>
+				    </li>
+			    </ul> -->
+>>>>>>> origin/main
 		    </nav>
 	    </div>
     </section>
     <!-- Featured Section PageNation End -->
 	
+<<<<<<< HEAD
 	<!-- <script type="text/javascript" th:inline="javascript">
 		const saveProduct = [[${saveProduct}]];
 		if(saveProduct > 0){
@@ -131,6 +197,8 @@
 		}
 	</script> -->
 	
+=======
+>>>>>>> origin/main
 	<script th:inline="javascript">
 		const reg = [[${reg}]];
 		if(reg==="1"){
