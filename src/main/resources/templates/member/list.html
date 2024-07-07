@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/fagination.css">
+
+<div class="container text-center md" style="margin-top: 10px;">
+<div class="member_list">
+<h2 style=" text-align: center;">회원 목록</h2>
+</div>
+
+<!-- 정렬 -->
+
+<form action="/member/list" role="search" method="get" style="display: flex; margin: 20px 60px 0 0; justify-content: flex-end;">
+<select class="form-select form-select-sm" name="type" aria-label="Small select example" onchange="this.form.submit()">
+  <option th:selected="${pgvo.type == null? true:false}">정렬</option>
+  <option th:value="l" th:selected="${pgvo.type == 'l'? true:false}">최신순</option>
+  <option th:value="r" th:selected="${pgvo.type == 'r'? true:false}">신고누적순</option>
+</select>
+<input type="hidden" name="pageNo" th:value="1">
+<input type="hidden" name="qty" th:value="${ph.pgvo.qty }">
+</form> 
+
+<!-- 프로필 -->
+
+<div class="row" style="margin-left: 35px;">
+<th:block th:each="mvo : ${list}">
+<div class="col" style="margin: 30px 0;">
+<div class="card " style="width: 18rem;">
+<a th:href="@{/member/mypage(email=${mvo.email })}"> <!-- ?로 이메일 가져가기 -->
+  	<img th:if="${mvo.isProfile == 0}" style="margin: 18px 15px 22px 18px; width: 220px; height: 220px; border-radius: 50%; object-fit : cover;" id="profile-image-display" class="profile-image-display" alt="프로필 사진 미리보기" src="/img/salgu_profile.png"><br>
+	<img th:if="${mvo.isProfile == 1}" style="margin: -3px 15px 22px 18px; width: 220px; height: 220px; border-radius: 50%; object-fit : cover;" id="profile-image-display" class="profile-image-display myProfile" alt="프로필 사진 미리보기" th:src="@{|/upload/${mvo.fvo.saveDir}/${mvo.nickName}_${mvo.fvo.fileName}|}">
+  	<!-- 나중에 기본 이미지 DB에 저장 후 변수로 사용 프로필 사진은 update로 바꾸기 -->
+</a>
+  <div class="card-body" style="padding-top: 0; text-align: left;">
+    <h4 class="card-title" style="text-align: center; font-weight: 800; margin-bottom: 30px;">[[${mvo.nickName}]]</h4>
+    <p class="card-text" >이름 : [[${mvo.name}]]</p>
+    <p class="card-text" >이메일 : [[${mvo.email}]]</p>
+    <p class="card-text" >가입날짜 : [[${mvo.regAt}]]</p>
+    <p class="card-text" >마지막 로그인 : [[${mvo.lastLogin }]]</p>
+    <p class="card-text" >경고 누적 : [[${mvo.report }]]</p>
+<a th:href="@{/member/mypage(email=${mvo.email })}"><button type="button"class="btn btn-outline-warning" style=" margin-left:50px; margin-right:5px; font-size: 15px;">회원정보</button></a>
+<a><button type="button" th:attr="data-email=${mvo.email}"  class="btn btn-outline-danger remove" style="  font-size: 15px;">회원탈퇴</button></a>
+  </div>
+</div>
+</div>
+</th:block>
+</div>
+</div>
+
+<!-- 페이지네이션 -->
+    <section class="pagenation">
+       <div class="container">
+          <nav aria-label="Page navigation example" style="margin:60px;">
+           <ul class="pagination justify-content-center">
+           <!-- 이전페이지 -->
+  		     <li class="page-item " th:if="${ph.prev}">
+               <a class="page-link" th:href="@{/member/list(pageNo=${ph.startPage-1},qty=${ph.pgvo.qty},type=${pgvo.type })}"  aria-label="Previous">&lt;&lt;</a>
+             </li>
+             
+   			 <li class="page-item ${ph.pgvo.pageNo == i ? 'active':''}" th:each="i:${#numbers.sequence(ph.startPage,ph.endPage)}">
+    			<a class="page-link"  th:href="@{/member/list(pageNo=${i},qty=${ph.pgvo.qty},type=${pgvo.type })}">[[${i}]]</a>
+   			 </li>
+             
+             <!-- 다음페이지 -->
+             <li class="page-item" th:if="${ph.next}">
+               <a class="page-link"  th:href="@{/member/list(pageNo=${ph.endPage+1 },qty=${ph.pgvo.qty},type=${pgvo.type })}"  aria-label="Next">&gt;&gt;</a>
+             </li>
+           </ul>
+         </nav>
+       </div>
+    </section>
+    
+    
+</th:block>
+</th:block>
+
+    <script th:inline="javascript">
+    
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove')) {
+            if (confirm('탈퇴 시키겠습니까?')) {
+            	let email = e.target.getAttribute('data-email');
+                location.href = '/member/remove?email=' + email;
+                alert('탈퇴 되었습니다.');
+            }else{
+            	alert('탈퇴실패')
+            }
+        }
+    });
+    
+    </script>

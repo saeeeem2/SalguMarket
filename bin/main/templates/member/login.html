@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+
+	<div class="container" style="max-width: 600px; padding: 50px; margin-bottom: 70px;">
+<h2 style="font-family: 'Do Hyeon', sans-serif; text-align: center;">로그인</h2><br>
+<form action="/member/login" method="post">
+<div class="mb-3" style="margin-top: 15px;">
+  <label for="exampleFormControlInput1" class="form-label t">이메일</label>
+  <input type="email" name="email" class="form-control f" id="exampleFormControlInput1" placeholder="이메일을 입력해주세요.">
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-labe t">비밀번호</label>
+  <input type="password" name="pwd" class="form-control f pwd" id="exampleFormControlInput1" placeholder="비밀번호를 입력해주세요.">
+</div>
+<div th:if="${param.error}">
+    <p class="error text-danger" style="font-weight: 600;">로그인에 실패했습니다. 다시 시도해주세요.</p>
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button type="submit" class="site-btn bb form-control" style=" margin-top: 10px;background-color: #FFAC6D;">로그인</button>
+</div>
+</form>
+<!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ <a id="kakao-login-btn" href="/oauth2/authorization/kakao"> <img class="k_login kakao_img"src="/img/kakao_login.png"width="152" alt="카카오 로그인 버튼" /></a>
+</div> -->
+<div class="d-grid gap-2 d-md-flex justify-content-md-center find">
+<a href="/member/register">회원가입</a>
+<a href="/member/findId">아이디 찾기</a>
+<a href="/member/findPw">비밀번호 찾기</a>
+</div>
+</div>
+	
+</th:block>
+</th:block>
+
+ <script th:inline="javascript">
+ const updatepwd = [[${updatepwd}]]
+ if(updatepwd==="1"){
+	 alert("비밀번호 변경 성공 \n다시 로그인해주세요.");
+ }
+ </script>

@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+section {
+    border-radius: 5px;
+    box-shadow: 0 0 10px #FFAC6D;
+    width: 37%;
+    margin: 0 auto 30px;
+	padding: 0;
+}
+.profile-image-display {
+    max-width: 100%;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+	display: block;
+	margin: auto;
+}
+.myProfile{
+	margin-top: -20px;
+}
+.mypage label, .mypage span {
+    display: block;
+    margin-bottom: 10px;
+}
+.col-lg-9 label{
+	font-size: 28px;
+}
+.image-file {
+    margin-top: 135px;
+}
+.col-lg-9{
+	max-width: 95%;
+	margin-top: 30px;
+	height: auto;
+}
+.col-lg-9 span{
+	font-size: 18px;
+}
+.profile-image-box{
+	height: 237px;
+}
+h2:after {
+   left: 0;
+   bottom: 680px;
+   right: 0;
+   height: 4px;
+   width: 80px;
+   background: #FFAC6D;
+   content: "";
+   margin: 0 auto;
+   display: block;
+}
+.favorite, .myPost{
+	font-size: 18px;
+	padding-top: 12px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 5px;
+}
+.image-file {
+	display: none;
+}
+.profile_submit{
+	display: none;
+}
+.profile-email{
+	display: none;
+}
+.image-delete{
+	margin-top: 10px;
+}
+.email-margin {
+	margin-top: 80px;
+}
+.site-btn {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 400;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 5px;
+    background: #f3b13e;
+    border: none;
+}
+ul {
+	list-style-type: none;
+}

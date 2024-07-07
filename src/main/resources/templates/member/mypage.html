@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<link rel="stylesheet" type="text/css" href="/css/register.css">
+<link rel="stylesheet" type="text/css" href="/css/mypage.css">
+
+    <section class="hero">
+    	<div class="container text-center md">
+        	<h2 style=" text-align: center; padding-top: 20px;">내 정보</h2>
+       		<div class="col-lg-9 mypage">
+        		<div class="profile-image-box" id="imageBox">
+			        <label class="profile-image">프로필 사진</label>
+			        <img th:if="${mvo.isProfile == 0}" id="profile-image-display" class="profile-image-display" alt="프로필 사진 미리보기" src="/img/salgu_profile.png"><br>
+			        <img th:if="${mvo.isProfile == 1}" id="profile-image-display" class="profile-image-display myProfile" alt="프로필 사진 미리보기" th:src="@{|/upload/${fvo.saveDir}/${mvo.nickName}_${fvo.fileName}|}">
+			        <form action="/member/profile" method="post" enctype="multipart/form-data" id="profile_submit">
+			        	<input type="email" name="email" class="profile-email" id="email" th:value="${mvo.email}">
+			        	<input class="image-file" type="file" name="file" id="profile-image-input" accept="image/*">
+			        	<button class="profile_submit" id="profile_submit_btn" type="submit"></button>
+			        </form>
+			        <form action="/member/profile" method="post">
+			        <input type="email" name="email" class="profile-email" id="email" th:value="${mvo.email}">
+			        	<button class="site-btn image-delete" style="background-color: #FFAC6D;" th:if="${mvo.isProfile == 1}" type="submit">사진 삭제</button>
+			        </form>
+        		</div>
+		        <label class="email-margin" for="email">이메일</label>
+		        <span id="userEmail">[[${mvo.email}]]</span>
+		        <label for="walletAddress">지갑 주소</label>
+		        <span th:if="${mvo.walletAddress != null}" id="walletAddress">[[${mvo.walletAddress}]]</span>
+		        <span th:if="${mvo.walletAddress == null}" id="walletAddress">지갑 주소 미생성</span>
+		        <label for="nickName">닉네임</label>
+		        <span id="nickName">[[${mvo.nickName}]]</span>
+		        
+	        </div>
+        </div>
+    </section>
+
+    <section id="favoriteList">
+        <h2 style=" text-align: center; padding-top: 20px;">찜 목록</h2>
+        <ul id="favoriteItems">
+            <li class="favorite">찜 목록</li>
+        </ul>
+        <!-- <button type="button" id="moreBtnH" data-page="1" class="btn btn-outline-secondary btn-block" style="visibility:hidden">more+</button> -->
+    </section>
+
+    <section id="myPosts">
+        <h2 style=" text-align: center; padding-top: 20px;">내가 쓴 글</h2>
+        <ul id="myPostList">
+            <li class="myPost">내가 쓴 글</li>
+        </ul>
+        <button type="button" id="moreBtn" data-page="1" class="btn btn-outline-secondary btn-block" style="visibility:hidden">more+</button>
+    </section>
+    
+    <section id="mySales">
+        <h2 style=" text-align: center; padding-top: 20px;">판매중인 제품</h2>
+        <ul id="mySaleList">
+            <li class="mySale">판매 중인 제품</li>
+        </ul>
+        <!--<button type="button" id="moreBtn" data-page="1" class="btn btn-outline-secondary btn-block" style="visibility:hidden">more+</button>-->
+    </section>
+    
+    <section id="myBuys">
+        <h2 style=" text-align: center; padding-top: 20px;">구매중인 제품</h2>
+        <ul id="myBuyList">
+            <li class="myBuy">구매 중인 제품</li>
+        </ul>
+        <!--<button type="button" id="moreBtn" data-page="1" class="btn btn-outline-secondary btn-block" style="visibility:hidden">more+</button>-->
+    </section>
+		
+	<script th:inline="javascript">
+		const isProfile = [[${mvo.isProfile}]];
+		const email = [[${mvo.email}]];
+	</script>
+	<script src="/js/profile.js"></script>
+	<script src="/js/myPost.js"></script>
+	<script src="/js/heartList.js"></script>
+	<script src="/js/mySale.js"></script>
+	<script src="/js/myBuy.js"></script>
+	<script th:inline="javascript">
+		spreadMyPostList(email);
+		spreadHeartList(email);
+		spreadMySaleList(email);
+		spreadMyBuyList(email);
+	</script>
+
+</th:block>
+</th:block>

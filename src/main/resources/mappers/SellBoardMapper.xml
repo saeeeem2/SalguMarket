@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.SalGuMarket.www.repository.SellBoardMapper">
+	
+	<insert id="insert">
+  		insert into sell_board(title,price,email,nick_name,content,category) values(#{title},#{price},#{email},#{nickName},#{content},#{category})
+  	</insert>
+  
+  	<select id="getSbno" resultType="long">
+		select max(sbno) from sell_board
+	</select>
+  
+  	<select id="getRecentSbno" resultType="Long">
+		SELECT MAX(sbno) FROM sell_board
+	</select>
+  
+  	<select id="list" resultType="com.SalGuMarket.www.domain.SellBoardVO">
+  		select * from sell_board order by sbno desc limit #{pageStart},#{qty}
+  	</select>
+  
+  	<select id="selectOne" resultType="com.SalGuMarket.www.domain.SellBoardVO">
+  		select * from sell_board where sbno=#{sbno}
+  	</select>
+  
+  	<update id="edit">
+  		update sell_board set title=#{title}, content=#{content}, reg_at=now() where sbno=#{sbno}
+  	</update>
+  	
+  	<delete id="remove">
+  		delete from sell_board where sbno=#{sbno}
+  	</delete>
+  	
+  	<select id="getTotalCount" resultType="int">
+  		select count(sbno) from sell_board
+  	</select>
+  	
+  	<update id="readCountUp">
+  		update sell_board set read_count=read_count+1 where sbno=#{sbno}
+  	</update>
+  	
+</mapper>
+  

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout :: setFragment(~{this::content})}">
+<th:block th:fragment="content">
+<link rel="stylesheet" type="text/css" href="/css/board.css">
+<link rel="stylesheet" href="/css/productSale.css" type="text/css">
+
+
+    <!-- Featured Section Begin -->
+<form action="/sell/sellRegister" method="post" enctype="multipart/form-data">
+    <section class="table">
+        <div class="container-md">
+				<div class="input-group mb-3">
+				  <span class="input-group-text" id="basic-addon1">제목</span>
+				  <input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요.">
+				</div>
+				<div>
+				  <!-- 작성자 -->
+				  <input th:if="${loginmvo!=null}" type="hidden" name="email" class="form-control" placeholder="제목을 입력해주세요." th:value="${loginmvo.email}">
+                  
+				  <!-- 닉네임 -->
+				  <input th:if="${loginmvo!=null}" type="hidden" name="nickName" class="form-control" placeholder="제목을 입력해주세요." th:value="${loginmvo.nickName}">
+				</div>
+
+				<div class="input-group">
+				  <span class="input-group-text">가격</span>
+				  <input class="form-control" name="price" placeholder="가격을 입력해주세요." rows="15" style="width:100%;"></input>
+				</div>
+				
+				<div class="checkout__input">
+                	<p>카테고리</p>
+					<div class="form-check">
+				  		<input class="form-check-input" type="radio" name="category" id="category2" value="beauty">
+				  		<label class="form-check-label" for="category2">
+				    		뷰티/미용
+				  		</label>
+					</div>
+					<div class="form-check">
+				  		<input class="form-check-input" type="radio" name="category" id="category3" value="clothes">
+				  		<label class="form-check-label" for="category3">
+				    		의류/잡화
+				  		</label>
+					</div>
+					<div class="form-check">
+				  		<input class="form-check-input" type="radio" name="category" id="category4" value="elec">
+				  		<label class="form-check-label" for="category4">
+				    		전자/생활가전
+				  		</label>
+					</div>
+					<div class="form-check">
+				  		<input class="form-check-input" type="radio" name="category" id="category5" value="ticket">
+				  		<label class="form-check-label" for="category5">
+				    		티켓/교환권
+				  		</label>
+					</div>
+					<div class="form-check">
+				  		<input class="form-check-input" type="radio" name="category" id="category6" value="animal">
+				  		<label class="form-check-label" for="category6">
+				    		반려동물
+				  		</label>
+					</div>
+					<div class="form-check">
+				  		<input class="form-check-input" type="radio" name="category" id="category7" value="free">
+				  		<label class="form-check-label" for="category7">
+				    		나눔
+				 		</label>
+					</div>
+                </div>
+
+				<div class="input-group">
+				  <span class="input-group-text">내용</span>
+				  <textarea class="form-control" name="content" placeholder="내용을 입력해주세요." rows="15" style="width:100%;"></textarea>
+				</div>
+
+				<!-- file upload 등록 라인 -->
+				<div class="mb-3 checkout__input">
+				  <p for="files1" class="form-label">Main Image File</p>
+				  <input type="file" name="files1" class="form-control" id="files1" multiple="multiple" style="display: none">
+				  <button type="button" class="btn btn-primary" id="fileTrigger1">Main File Upload</button>
+				  <!-- <input type="file"> 대신 사용할 버튼 -->
+				</div>
+				<!-- 파일 목록 표기 라인 -->
+				<div class="mb-3" id="fileZone1">
+					<!-- JS로 첨부 파일이 표시될 영역 -->
+				</div>
+				
+				<div class="mb-3 checkout__input">
+				  <p for="files2" class="form-label">Minor Image Files</p>
+				  <input type="file" name="files2" class="form-control" id="files2" multiple="multiple" style="display: none">
+				  <button type="button" class="btn btn-primary" id="fileTrigger2">Minor File Upload</button>
+				  <!-- <input type="file"> 대신 사용할 버튼 -->
+				</div>
+				<!-- 파일 목록 표기 라인 -->
+				<div class="mb-3" id="fileZone2">
+					<!-- JS로 첨부 파일이 표시될 영역 -->
+				</div>
+			<!-- </form> -->
+		</div>
+    </section>
+    <!-- Featured Section End -->
+        
+    <!-- Button Section Begin -->
+    <section class="button-area">
+	    <div class="container">
+		    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			  <button class="btn" id="regBtn" type="submit">저장</button>
+			</div>
+	    </div>
+    </section>
+	<br><br><br>
+</form>
+	<!-- Button Section End-->
+	
+	
+    <script th:src="@{/js/productSale.js}"></script>
+    <script th:src="@{/js/fileRegister.js}"></script>
+	
+</th:block>
+</th:block>

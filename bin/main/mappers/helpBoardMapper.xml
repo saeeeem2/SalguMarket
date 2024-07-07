@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.SalGuMarket.www.repository.HelpBoardMapper">
+
+	<select id="list" resultType="com.SalGuMarket.www.domain.HelpBoardVO">
+  		select * from help_board where email=#{email} order by hbno2 desc limit #{pgvo.pageStart},#{pgvo.qty}
+  	</select>
+
+	<select id="getTotalCount" resultType="int">
+	  	select count(h_bno) from help_board where email=#{email}
+  	</select>
+  	
+	<insert id="insert">
+  		insert into help_board(title,email,content) values(#{title}, #{email}, #{content})
+  	</insert>
+  	
+  	<select id="selectOne" resultType="com.SalGuMarket.www.domain.HelpBoardVO">
+  		select * from help_board where h_bno=#{hbno}
+  	</select>
+  	
+  	<select id="getHbno" resultType="long">
+		select max(h_bno) from help_board
+	</select>
+	
+	<update id="edit">
+  		update help_board set title=#{title}, content=#{content}, reg_at=now() where h_bno=#{hbno}
+  	</update>
+  	
+  	<delete id="remove">
+  		delete from help_board where h_bno=#{hbno}
+  	</delete>
+  	
+  	<update id="updateHbno2">
+  		update help_board set hbno2=#{hbno}*2 where h_bno=#{hbno}
+  	</update>
+
+  	<update id="setHbno2">
+  		update help_board set hbno2=#{hbno}+#{hbno} where h_bno=#{hbno}
+  	</update>
+  	
+  	<insert id="answer">
+  		insert into help_board(title,email,content,hbno2) values(#{hbvo.title}, #{hbvo.email}, #{hbvo.content}, #{hbno}*2-1)
+  	</insert>
+	
+</mapper>
